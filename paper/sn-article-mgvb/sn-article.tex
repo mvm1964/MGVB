@@ -1,0 +1,837 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+%%\documentclass[lineno,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%======================================================%%
+%% to compile with pdflatex/xelatex use pdflatex option %%
+%%======================================================%%
+
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+%%\documentclass[sn-mathphys]{sn-jnl}% Math and Physical Sciences Reference Style
+%%\documentclass[sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[sn-vancouver]{sn-jnl}% Vancouver Reference Style
+%%\documentclass[sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+\documentclass[sn-standardnature]{sn-jnl}% Standard Nature Portfolio Reference Style
+%%\documentclass[default]{sn-jnl}% Default
+%%\documentclass[default,iicol]{sn-jnl}% Default with double column layout
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+\jyear{2023}%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\begin{document}
+
+\title[MGVB tools for proteomics]{MGVB: a new proteomics toolset for fast and efficient data analysis}
+
+%%=============================================================%%
+%% Prefix	-> \pfx{Dr}
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% NatureName	-> \tanm{Poet Laureate} -> Title after name
+%% Degrees	-> \dgr{MSc, PhD}
+%% \author*[1,2]{\pfx{Dr} \fnm{Joergen W.} \spfx{van der} \sur{Ploeg} \sfx{IV} \tanm{Poet Laureate} 
+%%                 \dgr{MSc, PhD}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author*[1,2]{\fnm{Metodi V.} \sur{Metodiev}}\email{mmetod@essex.ac.uk}
+
+\affil[1]{\orgdiv{School of Life Sciences, Genomics and Computational Biology Group}, \orgname{University of Essex}, \orgaddress{\street{Wivenhoe Park}, \city{Colchester}, \postcode{CO4 3SQ}, \country{United Kingdom}}}
+
+\affil[2]{\orgdiv{Translational Oncology Unit}, \orgname{Medical University of Pleven}, \orgaddress{\city{Pleven}, \postcode{10587}, \country{Bulgaria}}}
+
+%%==================================%%
+%% sample for unstructured abstract %%
+%%==================================%%
+
+\abstract{MGVB is a collection of tools implemented in the programming language C. It covers proteomics data processing from in silico digestion of protein sequences to identification of postranslational modifications and solving the protein inference problem. The library is developed with efficiency in mind. It enables very fast analysis at a fraction of the resources cost typically required by existing commercial and free tools. MGVB, as it is a native application, can be faster than existing proteomics tools such as MaxQuant and MSFragger and, in the same time, finds very similar, in some cases even larger number of peptides at a chosen level of statistical significance. It implements a probabilistic scoring function to match spectra to sequences, and a novel combinatorial search strategy for finding post-translational modifications, and a Bayesian approach to locate modification sites. This report describes the algorithms behind the tools, present benchmarking data sets analysis results comparing MGVB performance to MaxQuant/Andromeda, and provides step by step protocols for using it in typical analytical scenarios. A static library of object files exposing the important functions and data structures is also provided. The toolset is provided free to download and use for academic research and in software projects, but is not open source at the present. It is the intention of the author that the library will be made open source in the near future—following rigorous evaluations and feedback from the proteomics research community. 
+}
+
+%%================================%%
+%% Sample for structured abstract %%
+%%================================%%
+
+% \abstract{\textbf{Purpose:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Methods:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Results:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.
+% 
+% \textbf{Conclusion:} The abstract serves both as a general introduction to the topic and as a brief, non-technical summary of the main results and their implications. The abstract must not include subheadings (unless expressly permitted in the journal's Instructions to Authors), equations or citations. As a guide the abstract should not exceed 200 words. Most journals do not set a hard limit however authors are advised to check the author instructions for the journal they are submitting to.}
+
+\keywords{software for computational proteomics, mass spectrometry, MS/MS search engine, shotgun analysis, post-translational modifications}
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+\section{Introduction}\label{sec1}
+Proteomics aims to identify and quantify the proteins at genome scale (reviewed in \cite{bib1}). At the present the technology of choice—almost universally employed  in large-scale proteomics studies—is high-resolution mass spectrometry of proteolytic digests. Modern hybrid mass spectrometers, when interfaced with nano-scale liquid chromatography, generate many thousands tandem spectra of peptide precursors per run; typical projects often generate more than a million spectra (see for example refs). 
+
+Raw mass spectra are processed by computational pipelines to identify and quantify the proteins. These pipelines utilise search engines that typically match peptide fragmentation spectra to the theoretically predicted sequence specific fragments, i.e. predicted from genomic sequences. Matching is a probabilistic process prone to false positive and false negative results (refs). To account for this, search engines such as Mascot and Andromeda, apply filters, most commonly based on the number of reverse database hits (refs). 
+
+With the advance of instrumentation data processing is becoming the bottleneck of proteomics workflows. To illustrate: practitioners of the art know that at the present a nano-LC-MS/MS experiment will generate 20,000 to 40,000 spectra in an hour or two but MaxQuant  or Mascot or Sequest analysis of the file would take substantial time even on a powerful multicore workstation. Even when MaxQuant is run under Mono on a high-performance computing cluster, analyses programmed to search for post-translational modifications take longer than the time needed to generate the raw files.
+
+Even more challenging computationally is the recently proposed open search approach, which attempts to identify peptides modified by unknown groups (refs). One implementation of this approach is the MSFagger algorithm (ref). It uses precomputed indexed database of peptide fragments to search the MS/MS spectra. MSFragger was publicised as an ultrafast algorithm but it also requires more time to process the data than the hardware needs to generate them. 
+
+Part of the reason for this level of performance is technical: most freely-available search engines are implemented as non native applications running in virtual machines, in part to avoid platform dependence. This puts substantial overheads on memory requirements and execution speed. Another reason is the relative ease of developing in Java and C\#, as they are object oriented garbage-collected languages with automatic memory management. However the platform dependence is a less severe problem nowadays as it used to be in the past, and ease of development does not justify inferior performance in scientific applications. A native search engine could potentially provide much faster processing time and would come with the added benefit of much smaller carbon footprint as it would use much less memory and processor time. This was the initial motivation behind the MGVB project: to develop a native search engine that could perform as well as the state of the art programs in terms of peptide and protein coverage, but do it faster and with less energy consumption. As it turned out—in the process of development—a new approach to post-translational modification analysis was conceived. It is a combinatorial search that combines the advantages of the open search but is much more effective as it can handle peptides modified on more that one site by more than one type of modification, a capability that open search algorithms such as the MSFragger lack by design. 
+
+MGVB consists of several program, which prepare peptide sequences, extract raw spectral data to proprietary binary files, match spectra, infer proteins and compute spectral counts to quantify the identified proteins. The scorer program implements probabilistic algorithms for spectra assignment to sequences, similar to MaxQuant/Andromeda (ref). To speed up modified peptides identification, for each candidate precursor sequence, predicted fragments are packaged in a balanced binary search tree, which is used for matching the spectral peaks. A binomial probability score is assigned based on the number of fragments matched. Modifications sites are determined by a Bayesian updating algorithm, which considers assigned fragments as experimental evidences of possible PTM localisation models to compute the final posterior probabilities of localisation. The combinatorial search algorithm, named scorer\_mpi, uses a precomputed database of combinations of up to 3 different post-translational modifications masses called mod\_comb. The current compilation of mod\_comb consists of more than 100,000 combinations of \$ different modifications from the Unimod database (Unimod is described in ref). Scorer\_mpi executes an open search to identify a set of candidate precursors. It then calculate the delta mass for each of the candidates and searches the mod-comb database for combinations matching the delta-mass. Once such combination is identified, scorer\_mpi uses the same Bayesian network algorithm as the socrer program to accurately determine the location of each modification from the combination. 
+
+An additional advantage of this approach is that only the initial precursor search needs to be restricted to high-mass accuracy. The search for MS/MS fragments matches does not need such accuracy. This makes the large amount of raw data acquired in the High/Low mode of analysis amenable to processing by scorer\_mpi.
+
+\section{Results and Discussion}\label{sec2}
+
+MGVB was tested with a collection of raw data files obtained from experiments with human cell lines. An LTQ/Orbitrap Velos isntrument was used to generate the data as described in refs. The results were obtained by analysing data from immunoprecipitation experiments using GFP-tagged Scribble as bait expressed in human HEK293 cells as described in Metodieva et al (2016). Both, high/low and high/high acquisition modes were used to generate the data. The performance of MGVB was compared to MaxQuant, version XXX running on the same hardware. 
+
+The following performance metrics were compared: number of peptides identified at 1\% FDR, number of proteins identified at  1\% FDR, total number of MS/MS spectra assigned at 1\% FDR, number of PTM identified for the target protein Scribble (see below for details of experimental context), speed: time for completing the different steps of the analysis, memory consumption, CPU time. 
+
+The results from these comparisons are presented in figures 1- 3 and in tables 1- 3. Fig. 1 shows the peptide and protein identification performance of MGVB compared to MaxQuant/Andromeda. MGVB and MaxQuant find very similar numbers of peptides and proteins at the chosen FDR. The number of MS/MS spectra assigned to the bait protein—which is the most abundant protein in the sample by a large margin—is also very similar. Similarly, the spectral counts for the known Scribble-interacting proteins GIT1 and ARHGEF7 are very close (shown in Table 1).  
+
+The quantitative agreement between MaxQuant and MGVB is illustrated on Fig. 2. In Fig 2A the spectral counts for Scribble, GIT1, ARHGEF7 and several other proteins identified in the immunoprecipitation experiments described in Metodieva et al (2016) are used to compute correlation between MaxQuant and MGVB.  Figure 2B shows a scatterplot and correlation coefficient for the peptide score for more than XXXX MS/MS spectra acquired in the immunoprecipitation experiments. As the figure shows there is excellent agreement between MaxQuant and MGVB in both comparisons, the quantitative estimation of protein abundance by spectral counting, and the peptide score.
+
+Fig. 3 compares the performance of MGVB and MaxQuant in terms of execution speed, memory consumption and CPU usage. MaxQuant was run under Mono on the same hardware configuration as MGVB. Speed of execution was measured for two specific tasks:  very stringent search, typically employed in projects aiming to quantify protein abundance but not interested in post-translational modification analysis, and PTM-focused projects. In the later case MaxQuant and MGVB were set to search for up to 3 PTMs per peptide and the modifications were set to N-terminal acetylation, methionine oxidation and STY phosphorylation. MGVB outperformed MaxQuant in speed and consumed much less memory and CPU time per run in all benchmarking experiments.
+
+The open search capabilities of MGVB are demonstrated with data in Table 2. MGVB can perform combinatorial PTM searches to identify hundreds of different modifications in two modes of operation: in an unrestricted mode it searches against the entire genome of the organism under study. This is challenging and requires a high-performance computer. Typically, in such experiments MGVB was run on up to 40 cpus using its inbuilt high-performance message-passing functionality. An alternative mode, the focused search, restricts the analysis to a subset of sequences selected from a preceding ultrafast stringent search. Typically, MGVB was set to initially search without any modification allowed and no missed cleavages. Such searches complete under a minute on a multicore workstation (8 cores). Proteins identified in such searches are then subjected to a focused combinatorial search. Table 2 shows that the focused approach correctly identifies all phosphorylation sites known for Scribble and suggests several novel modifications. 
+
+Compared to MGVB, recently published open search algorithms such as MSFragger (ref) suffer from two fundamental limitations. First, they require high mass accuracy for fragment masses. MSFragger, for example, uses a precomputed index of y and b fragment masses which have to be matched with very high mass accuracy. This imposes  strict restriction on the analytical platforms that can be used in the process of generating the data and makes the analysis of legacy high/low data difficult. Second, existing open search tools identify candidate peptide modifications by matching the delta mass of the identified peptide to candidate modification in a process that is inherently limited to recognising the modification as a single added group. A lengthy post processing employing machine learning is required to make sense of the initial assignments. For example, a delta mass of W units cannot be immediately assigned to a modification of type A on residue X plus a modification of type B on residue Y because the algorithm has no way of learning what the individual  masses A and B are from their sum. It will report the delta mass and the peptide sequence but it would be up to the researcher to hunt for the identities of A and B. Even more limiting, to the extend of making open search engine unusable for such cases, is the fact that if there are two modification on two different residues, many of the spectral peaks corresponding to y and b fragments will not be assigned by the open search engine.
+
+In contrast, MGVB would use the scorer\_mpi module to execute a combinatorial search, which would directly identify the two modifications, A and B, and will localise them to the correct residues—all in a single step analysis. 
+
+This is illustrated in Fig. 4 with the example of Scribble and its post-translational modifications.  An open search would have not identified the doubly phosphorylated peptides and the phospho/MetOx modified peptides as such because all singly modified fragment ions would have been missed.
+
+\section{Methods}\label{sec3}
+
+This section summarises the implementation and some of the algorithms used in MGVB. 
+
+\subsection{Implementation}\label{subsec1}
+As stated earlier MGVB is implemented in C and compiled in a collection of binary executable files and a library of objective files, which can be used on hardware running the Linux operating system. There is one exception, the program used to extract spectra from the proprietary raw files is implemented in C\# in order to be able to use the API provided by Thermo Fisher Scientific, but availability of .Net is not required to run it as the program is packaged into an executable file. Table \ref{table1} lists the different programs, and gives brief specifications of their typical use. Appendix 1 list in more details the various functions utilised by the programs and provides APIs for calling them in custom code. 
+
+\begin{table}[h]
+\begin{center}
+\begin{minipage}{350pt}
+\caption{List of MGVB modules}
+\label{table1}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Name  & Description\\
+\midrule
+digest & Performs in silico digestion of sequences from FASTA files.\\
+mod\_pep & Generate modified peptides sequences.\\
+toSQL\_proteins & Create sqlite table with protein sequences from FASTA files.\\
+toSQL\_peptides & Create sqlite table with peptide sequences from digested FASTA files.\\
+toSQL\_mod\_pep & Creates sqlite table with modified peptide sequences.\\
+extractRaw & Extracts from raw files and writes MS2 and MS1 files to disk\footnotemark[1] .   \\
+parseMS    & Parses MS2 files to proprietary binary mms files.  \\
+scorer    & Uses mms files and sqlite database to search for peptide matches\footnotemark[2].  \\
+scorer\_mpi & Uses mms and two sqlite databases to search for combinations of PTM\footnotemark[3]. \\
+select\_by\_prob & Filters candidate peptides based on score and other criteria.\\
+mgvb & Runs the above to perform automatic analysis using a config.rms file.\\
+\botrule
+\end{tabular}
+\footnotetext[1]{MS1 and MS2 files are text files that can be used by various proteomics search engines (ref).}
+\footnotetext[2]{Scorer uses the OpenMP library for shared memory parallel processing.}
+\footnotetext[3]{Scorer\_mpi uses the OpenMPI library for message passing parallel computations.}
+\end{minipage}
+\end{center}
+\end{table}
+
+In addition to the binary files included in the table above, there is a collection of shell scripts, which automate the various modes of analysis possible with MGVB. These are described in details in tutorial section in Appendix 2.
+
+The following external libraries were used to develop MGVB: the arbitrary precision number libraries from GNU, GMP and MPFR (refs); OpenMP (for shared memory parallelism) (ref); OpenMPI (for message-passing parallelism) (ref); sqlite3 (for storing and querying data) (ref). These libraries are statically linked and do not need to be installed on the user's computer.
+
+\subsection{Outline of algorithms}\label{subsec2}
+The detailed description of the scoring algorithm implemented in the scorer module is not provided as it closely follows the published Andromeda scoring algorithm: the same binomial score and the same approach of filtering the top q spectral peaks as MaxQuant/Andromeda are used. 
+
+Where MGVB differs is the algorithm for PTM localisation. Andromeda uses a scoring algorithm that is similar to the one used to match spectra to sequences (ref). A binomial probability derived score is computed for each possible PTM assignment model and the one with the highest score is selected. MGVB departs from this approach and uses a simple Bayesian updating algorithm to assign localisation probabilities. 
+
+The process starts with generation of all possible PTM localisation models, which are encoded as binary arrays. These are assigned equal prior probabilities. These priors are then updated using the detected fragments as experimental evidences to obtain the posterior probabilities of localisation. 
+
+The Bayesian updating algorithm is described in Algorithm 1. MGVB assumes a likelihood of 0.7 if a fragment is compatible with a localisation model and likelihood of 0.2 if not (the likelihood is the probability that the fragment will be observed given that the model in question is true).
+
+\begin{algorithm}
+\caption{Calculate PTM localisation models probabilities}\label{algorithm1}
+\begin{algorithmic}[1]
+\State $models \gets {computeModels}$ \Comment{generates N models}
+\State $p \gets {\{\(\frac{1}{N}\), \(\frac{1}{N}\)...\(\frac{1}{N}\)}\}$ \Comment {assigns uniform prior}
+\State $F \gets \text{masses of matched fragments in spectrum}$
+\ForAll{$f$ in $F$}
+        \ForAll{$m$ in $models$}
+            \If{$f$, $m$ are compatible}
+                \State $p_m \gets p_m \times \lambda_1$                \Comment {if compatible, lambda is set to 0.7}
+            \Else
+                \State $p_m \gets p_m \times \lambda_0$                \Comment {if not compatible it is usually 0.2}
+            \EndIf            
+        \EndFor
+\EndFor
+\State {Renormalise $p$ to sum to 1} 
+\end{algorithmic}
+\end{algorithm}
+\bigskip
+
+
+The Algorithm \ref{algorithm1} calculates posterior probabilities for the possible PTM localisation models. Model probabilities p\textsubscript{j} are then converted to site probabilities P\textsubscript{i} using the following equations:
+
+\begin{equation}
+{P_i} = \sum\limits_{j=1}^{N}{p}_j \times \gamma_j^i .\label{eq1}
+\end{equation}
+where,
+\begin{align}
+\gamma_j^i = 
+\begin{cases}
+  1 & \text{if site i is modified under model j} \\
+  0 & \text{otherwise}
+\end{cases}
+\end{align}
+
+The combinatorial PTM search algorithm implemented by scorer\_mpi is presented in Algorithm \ref{algorithm2}. It uses a precompiled database of combinations of up to 3 different PTMs and covers 125 (???) different modifications derived from Unimod.
+
+\begin{algorithm}
+\caption{Combinatorial PTM search implemented by scorer\_mpi}\label{algorithm2}
+\begin{algorithmic}[1]
+\State $mod\_comb \gets \text {generate mod\_comb}$ \Comment{generates delta mass db}
+\State $peptides \gets \text {generate peptide db}$ \Comment {generates peptides db}
+\ForAll {$s$ in mms file}    \Comment {mms file contains spectra}
+       \State $M \gets \text {$peptides$ matching parent of $s$}$    \Comment {usually \textpm 500 Da }
+       \ForAll{$m$ in $M$}
+           \State $\delta \gets \text {compute delta mass for $m$}$          
+           \State $ptm \gets \text {PTM combinations from $mod\_comb$ matching } \delta$
+            \ForAll {$c$ in $ptm$}
+               \State $score \gets \text {score $s$ against $m$ modified by $c$, save to results}$
+            \EndFor            
+        \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+\bigskip
+
+Algorithm \ref{algorithm3} is implemented in select\_by\_prob (see Table \ref {table1}).This module filters peptide hits using decoy database hits. Importantly, it solves the protein inference problem: given a set of matched peptides passing the score thresholds, what is the optimal peptides to proteins assignment? This is not a trivial problem as many proteins encoded by distinct genes share sequence similarities, which cause peptides to be shared across groups of proteins. MGVB solves the protein inference problem by implementing a recursive algorithm, which assigns peptides to the protein with the highest protein score in the protein group that share these peptides. Two data structures are involved: a linked list of protein groups, each node containing a list of identities of the proteins in the group,  count of spectra matching the group, and a pointer to the next element of the list. In addition, an array of protein data structures is used. This array is sorted by protein score to allow efficient searching.
+
+\begin{algorithm}
+\caption{Recursive protein inference from peptide matches}\label{algorithm3}
+\begin{algorithmic}[1]
+\State $pr\_groups \gets \text {generate linked list of protein\_group structs}$ 
+\State $proteins \gets \text {generate sorted array of tuples of protein IDs with scores}$ 
+\Function {process\_prot\_groups}{$pr\_groups$, $proteins$}
+    \If {$pr\_groups$ is empty}
+        \State $return$
+    \EndIf
+    \State $names \gets \text {split protein IDs in first node of $pr\_groups$ into array} $
+    \State $Pr \gets \text {the element of $names$ with the highest score in $proteins$}$
+    \State \text {delete all $pr\_groups$ nodes containing $Pr$ summing their counts to $c$}
+    \State \text {save $Pr$, $c$ to results}
+    \State \text {$return$ $PROCESS\_PROT\_GROUPS$($pr\_groups$, $proteins$)}     
+ \EndFunction
+ \State \text {$PROCESS\_PROT\_GROUPS$($pr\_groups$, $proteins$)}
+\end{algorithmic}
+\end{algorithm}
+\bigskip
+
+
+
+
+
+Algorithm \ref{algorithm3} outputs to a file containing spectral counts and protein IDs. MGVB also contains facilities for combining such files into an aggregated report file of comma separated values, which can be further analysed in R, Python, Excel or any other environment for machine learning and statistical analysis. In addition, MGVB creates sqlite database files for each raw file analysed, which contain plethora of information about scans, peptides, modification etc. These can be analysed by sqlite functions or other software operating on SQL databases. Some simple but useful report functions are given in Appendix 1.
+
+\section{Appendix 1}\label{sec4}
+
+\subsection {How-to-do guide for using the MGVB pipeline} \label {subsect3}
+
+\subsubsection{Differential expression and protein interaction analysis} \label {subsubsect1}
+
+MGVB is distrinuted as a single archive file. Download and expand the file in a convenient location on your system. For example: ~/proteomics.
+When placed in this directory and expanded, the archive will create a subdirectory tree containing mgvb/bin. To install the executables and run the pipeline do:
+\begin {enumerate}
+\item \text {Put mgvb/bin to the path: PATH=\$PATH: [path to mgvb/bin]}
+\item {Copy raw files to a new project directory}
+\item {Edit config.rms. Change only the necessary entries: fasta files and experiment names. If not interested in phosphorylations comment out the entry. Make sure precTol and tol are appropriate for the type of data—High/Low or High/High}
+\item {Execute omp\_auto.sh}
+\end {enumerate}
+
+\subsubsection {Focused analysis of modifications}
+\begin {enumerate}
+\item {Execute steps 1 to 3 above}
+\item {Create config\_focused.rms by copying config.rms and changing it: make precTol 500. Comment out all modificatons and all fasta entries. Create a new fasta entry as focused.fasta}
+\item {Execute auto\_focused.sh}
+\item {Examine results for a specific protein by: (i) opening the corresponding *.sig\_proteins\_ccounts.txt file and noting the protein number; (ii) looking up all relevant entries in unnested in the corresponding individual db file and then extracting all entries from sig\_scans with matching sequence:}
+\end {enumerate}
+
+       For a protein with number 921:
+       sqlite3 select * from sig\_scans where Sequence in (select sequence from unnested where Protein = "921");
+
+NB: Use exp\_ prefix for experiment names in config.rms. This solves problems with sqlite table names
+
+\subsubsection {Automated focused analysis} \label {subsubsect2}
+
+1. Make sure MGVB is installed (executables and sh scripts are on the path)
+
+2. Start with a clean directory containing raw files, db1\_min.db file, config.rms and config\_focused.rms
+
+3. Make sure table proteins in db1\_min.db is deleted: execute sqlite3 db1\_min.db drop table proteins; and then vacuum
+
+4. Execute auto\_focused\_mgvb.sh <number of processors>
+
+5. Interrogate results using sqlite functionality
+
+\bigskip
+\bigskip
+-----------------
+
+Topical subheadings are allowed. Authors must ensure that their Methods section includes adequate experimental and characterisation data necessary for others in the field to reproduce their work. Authors are encouraged to include RIIDs where appropriate. 
+
+\textbf{Ethical approval declarations} (only required where applicable) Any article reporting experiment/s carried out on (i)~live vertebrate (or higher invertebrates), (ii)~humans or (iii)~human samples must include an unambiguous statement within the methods section that meets the following requirements: 
+
+
+
+
+The Introduction section, of referenced text \cite{bib1} expands on the background of the work (some overlap with the Abstract is acceptable). The introduction should not include subheadings.
+
+Springer Nature does not impose a strict layout as standard however authors are advised to check the individual requirements for the journal they are planning to submit to as there may be journal-level preferences. When preparing your text please also be aware that some stylistic choices are not supported in full text XML (publication version), including coloured font. These will not be replicated in the typeset article if it is accepted. 
+
+
+\section{This is an example for first level head---section head}\label{sec3}
+
+\subsection{This is an example for second level head---subsection head}\label{subsec2}
+
+\subsubsection{This is an example for third level head---subsubsection head}\label{subsubsec2}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. 
+
+\section{Equations}\label{sec4}
+
+Equations in \LaTeX\ can either be inline or on-a-line by itself (``display equations''). For
+inline equations use the \verb+$...$+ commands. E.g.: The equation
+$H\psi = E \psi$ is written via the command \verb+$H \psi = E \psi$+.
+
+For display equations (with auto generated equation numbers)
+one can use the equation or align environments:
+\begin{equation}
+\|\tilde{X}(k)\|^2 \leq\frac{\sum\limits_{i=1}^{p}\left\|\tilde{Y}_i(k)\right\|^2+\sum\limits_{j=1}^{q}\left\|\tilde{Z}_j(k)\right\|^2 }{p+q}.\label{eq1}
+\end{equation}
+where,
+\begin{align}
+D_\mu &=  \partial_\mu - ig \frac{\lambda^a}{2} A^a_\mu \nonumber \\
+F^a_{\mu\nu} &= \partial_\mu A^a_\nu - \partial_\nu A^a_\mu + g f^{abc} A^b_\mu A^a_\nu \label{eq2}
+\end{align}
+Notice the use of \verb+\nonumber+ in the align environment at the end
+of each line, except the last, so as not to produce equation numbers on
+lines where no equation numbers are required. The \verb+\label{}+ command
+should only be used at the last line of an align environment where
+\verb+\nonumber+ is not used.
+\begin{equation}
+Y_\infty = \left( \frac{m}{\textrm{GeV}} \right)^{-3}
+    \left[ 1 + \frac{3 \ln(m/\textrm{GeV})}{15}
+    + \frac{\ln(c_2/5)}{15} \right]
+\end{equation}
+The class file also supports the use of \verb+\mathbb{}+, \verb+\mathscr{}+ and
+\verb+\mathcal{}+ commands. As such \verb+\mathbb{R}+, \verb+\mathscr{R}+
+and \verb+\mathcal{R}+ produces $\mathbb{R}$, $\mathscr{R}$ and $\mathcal{R}$
+respectively (refer Subsubsection~\ref{subsubsec2}).
+
+\section{Tables}\label{sec5}
+
+Tables can be inserted via the normal table and tabular environment. To put
+footnotes inside tables you should use \verb+\footnotetext[]{...}+ tag.
+The footnote appears just below the table itself (refer Tables~\ref{tab1} and \ref{tab2}). 
+For the corresponding footnotemark use \verb+\footnotemark[...]+
+
+\begin{table}[h]
+\begin{center}
+\begin{minipage}{174pt}
+\caption{Caption text}\label{tab1}%
+\begin{tabular}{@{}llll@{}}
+\toprule
+Column 1 & Column 2  & Column 3 & Column 4\\
+\midrule
+row 1    & data 1   & data 2  & data 3  \\
+row 2    & data 4   & data 5\footnotemark[1]  & data 6  \\
+row 3    & data 7   & data 8  & data 9\footnotemark[2]  \\
+\botrule
+\end{tabular}
+\footnotetext{Source: This is an example of table footnote. This is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote. This is an example of table footnote.}
+\footnotetext[2]{Example for a second table footnote. This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+
+\noindent
+The input format for the above table is as follows:
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{verbatim}
+\begin{table}[<placement-specifier>]
+\begin{center}
+\begin{minipage}{<preferred-table-width>}
+\caption{<table-caption>}\label{<table-label>}%
+\begin{tabular}{@{}llll@{}}
+\toprule
+Column 1 & Column 2 & Column 3 & Column 4\\
+\midrule
+row 1 & data 1 & data 2	 & data 3 \\
+row 2 & data 4 & data 5\footnotemark[1] & data 6 \\
+row 3 & data 7 & data 8	 & data 9\footnotemark[2]\\
+\botrule
+\end{tabular}
+\footnotetext{Source: This is an example of table footnote. 
+This is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote.
+This is an example of table footnote.}
+\footnotetext[2]{Example for a second table footnote. 
+This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+\end{verbatim}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+\begin{table}[h]
+\begin{center}
+\begin{minipage}{\textwidth}
+\caption{Example of a lengthy table which is set to full textwidth}\label{tab2}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc@{\extracolsep{\fill}}}
+\toprule%
+& \multicolumn{3}{@{}c@{}}{Element 1\footnotemark[1]} & \multicolumn{3}{@{}c@{}}{Element 2\footnotemark[2]} \\\cmidrule{2-4}\cmidrule{5-7}%
+Project & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ \\
+\midrule
+Element 3  & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$\\
+Element 4  & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$\\
+\botrule
+\end{tabular*}
+\footnotetext{Note: This is an example of table footnote. This is an example of table footnote this is an example of table footnote this is an example of~table footnote this is an example of table footnote.}
+\footnotetext[1]{Example for a first table footnote.}
+\footnotetext[2]{Example for a second table footnote.}
+\end{minipage}
+\end{center}
+\end{table}
+
+In case of double column layout, tables which do not fit in single column width should be set to full text width. For this, you need to use \verb+\begin{table*}+ \verb+...+ \verb+\end{table*}+ instead of \verb+\begin{table}+ \verb+...+ \verb+\end{table}+ environment. Lengthy tables which do not fit in textwidth should be set as rotated table. For this, you need to use \verb+\begin{sidewaystable}+ \verb+...+ \verb+\end{sidewaystable}+ instead of \verb+\begin{table*}+ \verb+...+ \verb+\end{table*}+ environment. This environment puts tables rotated to single column width. For tables rotated to double column width, use \verb+\begin{sidewaystable*}+ \verb+...+ \verb+\end{sidewaystable*}+.
+
+\begin{sidewaystable}
+\sidewaystablefn%
+\begin{center}
+\begin{minipage}{\textheight}
+\caption{Tables which are too long to fit, should be written using the ``sidewaystable'' environment as shown here}\label{tab3}
+\begin{tabular*}{\textheight}{@{\extracolsep{\fill}}lcccccc@{\extracolsep{\fill}}}
+\toprule%
+& \multicolumn{3}{@{}c@{}}{Element 1\footnotemark[1]}& \multicolumn{3}{@{}c@{}}{Element\footnotemark[2]} \\\cmidrule{2-4}\cmidrule{5-7}%
+Projectile & Energy	& $\sigma_{calc}$ & $\sigma_{expt}$ & Energy & $\sigma_{calc}$ & $\sigma_{expt}$ \\
+\midrule
+Element 3 & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$ \\
+Element 4 & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$ \\
+Element 5 & 990 A & 1168 & $1547\pm12$ & 780 A & 1166 & $1239\pm100$ \\
+Element 6 & 500 A & 961  & $922\pm10$  & 900 A & 1268 & $1092\pm40$ \\
+\botrule
+\end{tabular*}
+\footnotetext{Note: This is an example of table footnote this is an example of table footnote this is an example of table footnote this is an example of~table footnote this is an example of table footnote.}
+\footnotetext[1]{This is an example of table footnote.}
+\end{minipage}
+\end{center}
+\end{sidewaystable}
+
+\section{Figures}\label{sec6}
+
+As per the \LaTeX\ standards you need to use eps images for \LaTeX\ compilation and \verb+pdf/jpg/png+ images for \verb+PDFLaTeX+ compilation. This is one of the major difference between \LaTeX\ and \verb+PDFLaTeX+. Each image should be from a single input .eps/vector image file. Avoid using subfigures. The command for inserting images for \LaTeX\ and \verb+PDFLaTeX+ can be generalized. The package used to insert images in \verb+LaTeX/PDFLaTeX+ is the graphicx package. Figures can be inserted via the normal figure environment as shown in the below example:
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{verbatim}
+\begin{figure}[<placement-specifier>]
+\centering
+\includegraphics{<eps-file>}
+\caption{<figure-caption>}\label{<figure-label>}
+\end{figure}
+\end{verbatim}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+\begin{figure}[h]%
+\centering
+\includegraphics[width=0.9\textwidth]{fig.eps}
+\caption{This is a widefig. This is an example of long caption this is an example of long caption  this is an example of long caption this is an example of long caption}\label{fig1}
+\end{figure}
+
+In case of double column layout, the above format puts figure captions/images to single column width. To get spanned images, we need to provide \verb+\begin{figure*}+ \verb+...+ \verb+\end{figure*}+.
+
+For sample purpose, we have included the width of images in the optional argument of \verb+\includegraphics+ tag. Please ignore this. 
+
+\section{Algorithms, Program codes and Listings}\label{sec7}
+
+Packages \verb+algorithm+, \verb+algorithmicx+ and \verb+algpseudocode+ are used for setting algorithms in \LaTeX\ using the format:
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{verbatim}
+\begin{algorithm}
+\caption{<alg-caption>}\label{<alg-label>}
+\begin{algorithmic}[1]
+. . .
+\end{algorithmic}
+\end{algorithm}
+\end{verbatim}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+You may refer above listed package documentations for more details before setting \verb+algorithm+ environment. For program codes, the ``program'' package is required and the command to be used is \verb+\begin{program}+ \verb+...+ \verb+\end{program}+. A fast exponentiation procedure:
+
+\begin{program}
+\BEGIN \\ %
+  \FOR i:=1 \TO 10 \STEP 1 \DO
+     |expt|(2,i); \\ |newline|() \OD %
+\rcomment{Comments will be set flush to the right margin}
+\WHERE
+\PROC |expt|(x,n) \BODY
+          z:=1;
+          \DO \IF n=0 \THEN \EXIT \FI;
+             \DO \IF |odd|(n) \THEN \EXIT \FI;
+\COMMENT{This is a comment statement};
+                n:=n/2; x:=x*x \OD;
+             \{ n>0 \};
+             n:=n-1; z:=z*x \OD;
+          |print|(z) \ENDPROC
+\END
+\end{program}
+
+
+\begin{algorithm}
+\caption{Calculate $y = x^n$}\label{algo1}
+\begin{algorithmic}[1]
+\Require $n \geq 0 \vee x \neq 0$
+\Ensure $y = x^n$ 
+\State $y \Leftarrow 1$
+\If{$n < 0$}\label{algln2}
+        \State $X \Leftarrow 1 / x$
+        \State $N \Leftarrow -n$
+\Else
+        \State $X \Leftarrow x$
+        \State $N \Leftarrow n$
+\EndIf
+\While{$N \neq 0$}
+        \If{$N$ is even}
+            \State $X \Leftarrow X \times X$
+            \State $N \Leftarrow N / 2$
+        \Else[$N$ is odd]
+            \State $y \Leftarrow y \times X$
+            \State $N \Leftarrow N - 1$
+        \EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+Similarly, for \verb+listings+, use the \verb+listings+ package. \verb+\begin{lstlisting}+ \verb+...+ \verb+\end{lstlisting}+ is used to set environments similar to \verb+verbatim+ environment. Refer to the \verb+lstlisting+ package documentation for more details.
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{minipage}{\hsize}%
+\lstset{frame=single,framexleftmargin=-1pt,framexrightmargin=-17pt,framesep=12pt,linewidth=0.98\textwidth,language=pascal}% Set your language (you can change the language for each code-block optionally)
+%%% Start your code-block
+\begin{lstlisting}
+for i:=maxint to 0 do
+begin
+{ do nothing }
+end;
+Write('Case insensitive ');
+Write('Pascal keywords.');
+\end{lstlisting}
+\end{minipage}
+
+\section{Cross referencing}\label{sec8}
+
+Environments such as figure, table, equation and align can have a label
+declared via the \verb+\label{#label}+ command. For figures and table
+environments use the \verb+\label{}+ command inside or just
+below the \verb+\caption{}+ command. You can then use the
+\verb+\ref{#label}+ command to cross-reference them. As an example, consider
+the label declared for Figure~\ref{fig1} which is
+\verb+\label{fig1}+. To cross-reference it, use the command 
+\verb+Figure \ref{fig1}+, for which it comes up as
+``Figure~\ref{fig1}''. 
+
+To reference line numbers in an algorithm, consider the label declared for the line number 2 of Algorithm~\ref{algo1} is \verb+\label{algln2}+. To cross-reference it, use the command \verb+\ref{algln2}+ for which it comes up as line~\ref{algln2} of Algorithm~\ref{algo1}.
+
+\subsection{Details on reference citations}\label{subsec7}
+
+Standard \LaTeX\ permits only numerical citations. To support both numerical and author-year citations this template uses \verb+natbib+ \LaTeX\ package. For style guidance please refer to the template user manual.
+
+Here is an example for \verb+\cite{...}+: \cite{bib1}. Another example for \verb+\citep{...}+: \citep{bib2}. For author-year citation mode, \verb+\cite{...}+ prints Jones et al. (1990) and \verb+\citep{...}+ prints (Jones et al., 1990).
+
+All cited bib entries are printed at the end of this article: \cite{bib3}, \cite{bib4}, \cite{bib5}, \cite{bib6}, \cite{bib7}, \cite{bib8}, \cite{bib9}, \cite{bib10}, \cite{bib11} and \cite{bib12}.
+
+\section{Examples for theorem like environments}\label{sec10}
+
+For theorem like environments, we require \verb+amsthm+ package. There are three types of predefined theorem styles exists---\verb+thmstyleone+, \verb+thmstyletwo+ and \verb+thmstylethree+ 
+
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+\bigskip
+\begin{tabular}{|l|p{19pc}|}
+\hline
+\verb+thmstyleone+ & Numbered, theorem head in bold font and theorem text in italic style \\\hline
+\verb+thmstyletwo+ & Numbered, theorem head in roman font and theorem text in italic style \\\hline
+\verb+thmstylethree+ & Numbered, theorem head in bold font and theorem text in roman style \\\hline
+\end{tabular}
+\bigskip
+%%=============================================%%
+%% For presentation purpose, we have included  %%
+%% \bigskip command. please ignore this.       %%
+%%=============================================%%
+
+For mathematics journals, theorem styles can be included as shown in the following examples:
+
+\begin{theorem}[Theorem subhead]\label{thm1}
+Example theorem text. Example theorem text. Example theorem text. Example theorem text. Example theorem text. 
+Example theorem text. Example theorem text. Example theorem text. Example theorem text. Example theorem text. 
+Example theorem text. 
+\end{theorem}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+
+\begin{proposition}
+Example proposition text. Example proposition text. Example proposition text. Example proposition text. Example proposition text. 
+Example proposition text. Example proposition text. Example proposition text. Example proposition text. Example proposition text. 
+\end{proposition}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+
+\begin{example}
+Phasellus adipiscing semper elit. Proin fermentum massa
+ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend
+at, accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna. Nunc eleifend consequat lorem. 
+\end{example}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+
+\begin{remark}
+Phasellus adipiscing semper elit. Proin fermentum massa
+ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend
+at, accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna. Nunc eleifend consequat lorem. 
+\end{remark}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+
+\begin{definition}[Definition sub head]
+Example definition text. Example definition text. Example definition text. Example definition text. Example definition text. Example definition text. Example definition text. Example definition text. 
+\end{definition}
+
+Additionally a predefined ``proof'' environment is available: \verb+\begin{proof}+ \verb+...+ \verb+\end{proof}+. This prints a ``Proof'' head in italic font style and the ``body text'' in roman font style with an open square at the end of each proof environment. 
+
+\begin{proof}
+Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. 
+\end{proof}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text. Sample body text.
+
+\begin{proof}[Proof of Theorem~{\upshape\ref{thm1}}]
+Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. Example for proof text. 
+\end{proof}
+
+\noindent
+For a quote environment, use \verb+\begin{quote}...\end{quote}+
+\begin{quote}
+Quoted text example. Aliquam porttitor quam a lacus. Praesent vel arcu ut tortor cursus volutpat. In vitae pede quis diam bibendum placerat. Fusce elementum
+convallis neque. Sed dolor orci, scelerisque ac, dapibus nec, ultricies ut, mi. Duis nec dui quis leo sagittis commodo.
+\end{quote}
+
+Sample body text. Sample body text. Sample body text. Sample body text. Sample body text (refer Figure~\ref{fig1}). Sample body text. Sample body text. Sample body text (refer Table~\ref{tab3}). 
+
+\section{Methods}\label{sec11}
+
+Topical subheadings are allowed. Authors must ensure that their Methods section includes adequate experimental and characterization data necessary for others in the field to reproduce their work. Authors are encouraged to include RIIDs where appropriate. 
+
+\textbf{Ethical approval declarations} (only required where applicable) Any article reporting experiment/s carried out on (i)~live vertebrate (or higher invertebrates), (ii)~humans or (iii)~human samples must include an unambiguous statement within the methods section that meets the following requirements: 
+
+\begin{enumerate}[1.]
+\item Approval: a statement which confirms that all experimental protocols were approved by a named institutional and/or licensing committee. Please identify the approving body in the methods section
+
+\item Accordance: a statement explicitly saying that the methods were carried out in accordance with the relevant guidelines and regulations
+
+\item Informed consent (for experiments involving humans or human tissue samples): include a statement confirming that informed consent was obtained from all participants and/or their legal guardian/s
+\end{enumerate}
+
+If your manuscript includes potentially identifying patient/participant information, or if it describes human transplantation research, or if it reports results of a clinical trial then  additional information will be required. Please visit (\url{https://www.nature.com/nature-research/editorial-policies}) for Nature Portfolio journals, (\url{https://www.springer.com/gp/authors-editors/journal-author/journal-author-helpdesk/publishing-ethics/14214}) for Springer Nature journals, or (\url{https://www.biomedcentral.com/getpublished/editorial-policies\#ethics+and+consent}) for BMC.
+
+\section{Discussion}\label{sec12}
+
+Discussions should be brief and focused. In some disciplines use of Discussion or `Conclusion' is interchangeable. It is not mandatory to use both. Some journals prefer a section `Results and Discussion' followed by a section `Conclusion'. Please refer to Journal-level guidance for any specific requirements. 
+
+\section{Conclusion}\label{sec13}
+
+Conclusions may be used to restate your hypothesis or research question, restate your major findings, explain the relevance and the added value of your work, highlight any limitations of your study, describe future directions for research and recommendations. 
+
+In some disciplines use of Discussion or 'Conclusion' is interchangeable. It is not mandatory to use both. Please refer to Journal-level guidance for any specific requirements. 
+
+\backmatter
+
+\bmhead{Supplementary information}
+
+If your article has accompanying supplementary file/s please state so here. 
+
+Authors reporting data from electrophoretic gels and blots should supply the full unprocessed scans for key as part of their Supplementary information. This may be requested by the editorial team/s if it is missing.
+
+Please refer to Journal-level guidance for any specific requirements.
+
+\bmhead{Acknowledgments}
+
+Acknowledgments are not compulsory. Where included they should be brief. Grant or contribution numbers may be acknowledged.
+
+Please refer to Journal-level guidance for any specific requirements.
+
+\section*{Declarations}
+
+Some journals require declarations to be submitted in a standardised format. Please check the Instructions for Authors of the journal to which you are submitting to see if you need to complete this section. If yes, your manuscript must contain the following sections under the heading `Declarations':
+
+\begin{itemize}
+\item Funding
+\item Conflict of interest/Competing interests (check journal-specific guidelines for which heading to use)
+\item Ethics approval 
+\item Consent to participate
+\item Consent for publication
+\item Availability of data and materials
+\item Code availability 
+\item Authors' contributions
+\end{itemize}
+
+\noindent
+If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section. 
+
+%%===================================================%%
+%% For presentation purpose, we have included        %%
+%% \bigskip command. please ignore this.             %%
+%%===================================================%%
+\bigskip
+\begin{flushleft}%
+Editorial Policies for:
+
+\bigskip\noindent
+Springer journals and proceedings: \url{https://www.springer.com/gp/editorial-policies}
+
+\bigskip\noindent
+Nature Portfolio journals: \url{https://www.nature.com/nature-research/editorial-policies}
+
+\bigskip\noindent
+\textit{Scientific Reports}: \url{https://www.nature.com/srep/journal-policies/editorial-policies}
+
+\bigskip\noindent
+BMC journals: \url{https://www.biomedcentral.com/getpublished/editorial-policies}
+\end{flushleft}
+
+\begin{appendices}
+
+\section{Section title of first appendix}\label{secA1}
+
+An appendix contains supplementary information that is not an essential part of the text itself but which may be helpful in providing a more comprehensive understanding of the research problem or it is information that is too cumbersome to be included in the body of the paper.
+
+%%=============================================%%
+%% For submissions to Nature Portfolio Journals %%
+%% please use the heading ``Extended Data''.   %%
+%%=============================================%%
+
+%%=============================================================%%
+%% Sample for another appendix section			       %%
+%%=============================================================%%
+
+%% \section{Example of another appendix section}\label{secA2}%
+%% Appendices may be used for helpful, supporting or essential material that would otherwise 
+%% clutter, break up or be distracting to the text. Appendices can consist of sections, figures, 
+%% tables and equations etc.
+
+\end{appendices}
+
+%%===========================================================================================%%
+%% If you are submitting to one of the Nature Portfolio journals, using the eJP submission   %%
+%% system, please include the references within the manuscript file itself. You may do this  %%
+%% by copying the reference list from your .bbl file, paste it into the main manuscript .tex %%
+%% file, and delete the associated \verb+\bibliography+ commands.                            %%
+%%===========================================================================================%%
+
+\bibliography{sn-bibliography}% common bib file
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+%% Default %%
+%%\input sn-sample-bib.tex%
+
+\end{document}
