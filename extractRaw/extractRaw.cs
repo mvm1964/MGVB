@@ -1,5 +1,5 @@
 /*
- * Raw file extractor C# to be used with rawExtract
+ * Raw file extractor in C# to be used with rawExtract
  * Uses mono and Therno dll libraries
  * compile with:
  * csc extractRaw.cs -r:ThermoFisher.CommonCore.Data.dll -r:ThermoFisher.CommonCore.RawFileReader.dll
