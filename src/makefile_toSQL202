@@ -1,1 +1,0 @@
-gcc -g -Wall -pthread -o toSQL2023 test_sql_prot.c sqlite3.c -ldl toSQL2023.c

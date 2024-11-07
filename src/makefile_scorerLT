@@ -1,1 +1,0 @@
-gcc -g -Wall -O2 -fopenmp -pthread -o scorerLT_O2 scorerLT.c -lmpfr -lgmp sqlite3.c -ldl pepMass.c item_open.c bst2023.c compute_site_prob_optimized.c parse_spectrum.c -lgsl -lgslcblas -lm

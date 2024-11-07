@@ -1,1 +1,0 @@
-mpicc -g -pthread scorer_mpi_v4.c -o scorer_mpi_v5 -lmpfr -lgmp sqlite3.c -ldl pepMass.c item_open.c bst_open.c compute_site_prob_open_optimized.c -lm
