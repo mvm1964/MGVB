@@ -1,4 +1,4 @@
-To compile the executable you will need to have Modo-develop installed on your machine. The two dll files, ThermoFisher.CommonCore.Data.dll and ThermoFisher.CommonCore.RawFileReader.dll, must be in the same directory as the extractRaw.cs.  
+To compile the executable you will need to have Modo-develop installed on your machine. The two dll files, `ThermoFisher.CommonCore.Data.dll` and `ThermoFisher.CommonCore.RawFileReader.dll`, must be in the same directory as the extractRaw.cs.  
 
 Then, from within this directory execute:  
 `mono-csc extractRaw.cs -r:ThermoFisher.CommonCore.Data.dll -r:ThermoFisher.CommonCore.RawFileReader.dll`  
