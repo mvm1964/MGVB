@@ -7,7 +7,7 @@ You can now use extractRaw with Mono to extract spectra from raw files like this
 `mono extractRaw.exe file_name.raw`
 
 To make a bundle that does not depend on mono being installed on the target machine execute:  
-'mkbundle -o extractRaw --simple extractRaw.exe --no-machine-config --no-config'  
+`mkbundle -o extractRaw --simple extractRaw.exe --no-machine-config --no-config` 
 
-This will create 'extractRaw' executable that has mono bundled in it and can be distributed to other machines.
+This will create `extractRaw` executable that has mono bundled in it and can be distributed to other machines.
 
