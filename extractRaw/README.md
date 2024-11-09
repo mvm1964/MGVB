@@ -1,3 +1,5 @@
+#How to make extractRaw for your flavour of Linux
+
 To compile the executable you will need to have Modo-develop installed on your machine. The two dll files, `ThermoFisher.CommonCore.Data.dll` and `ThermoFisher.CommonCore.RawFileReader.dll`, must be in the same directory as `extractRaw.cs`.  
 
 Then, from within this directory execute:  
