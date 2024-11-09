@@ -6,7 +6,7 @@
  *
  * Author: Metodi V. Metodiev
  * 30.01.2021
- * Minchini House, Ravna, Bulgaria
+ * 
 */
 
 using System;
@@ -133,8 +133,8 @@ public class ExtractRaw
 
                 if (monoisotopicMass == 0.0){
                     if (precursorMass*precursorCharge <= 2100) monoisotopicMass = precursorMass;
-                    else if (precursorMass*precursorCharge > 2100 || precursorMass*precursorCharge < 4200) monoisotopicMass = precursorMass - 1.007276/precursorCharge;
-                    else monoisotopicMass = precursorMass - 2*1.007276/precursorCharge;
+                    else if (precursorMass*precursorCharge > 2100 || precursorMass*precursorCharge < 4200) monoisotopicMass = precursorMass - 1.0/precursorCharge;
+                    else monoisotopicMass = precursorMass - 2*1.0/precursorCharge;
                 }
                 file.WriteLine("I\tPrecursorMass\t{0}", (monoisotopicMass*precursorCharge) - (precursorCharge - 1)*1.007276);
                 file.WriteLine("Z\t{0}\t{1}", precursorCharge, (monoisotopicMass*precursorCharge) - (precursorCharge - 1)*1.007276);
