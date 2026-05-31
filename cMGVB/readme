@@ -1,5 +1,7 @@
 This repository contains the GPU-enabled implementation of MGVB
 
 To run it copy mgvb_2026_cuda, focused_cMGVB.sh, PEP_for_gMGVB.R, and 
-sqlite_script.sql to your MGVB/bin directory. Then, from within your
-raw files directory execute focused_cMGVB.sh
+sqlite_script.sql to your MGVB/bin directory. Edit lines xxx and yyy 
+of focused_cMGVB.sh to include full path to your mgvb/bin directory.
+Edit config files as for MGVB runs. Then, from within your raw files 
+directory execute focused_cMGVB.sh.
