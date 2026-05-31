@@ -25,7 +25,7 @@ do
    deep_seq "${file_arr1[i]}" db1_min.db sequences.db proteins_from_fasta.txt peptides.txt
    nSpec=$(get_nspectra "${file_arr2[i]}")
    
-   time mgvb_2026_cuda "${file_arr2[i]}" sequences.db config_focused.rms $nSpec 1
+   time mgvb_2026_cuda "${file_arr2[i]}" sequences.db config.rms $nSpec 1
 
    # Filter py PEP
    Rscript PEP_for_gMGVB.R
