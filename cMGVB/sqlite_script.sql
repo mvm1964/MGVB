@@ -7,6 +7,6 @@ attach database "sequences.db" as sequences;
 create table tmp1 as select rowid, sequence, prot_id from sequences.peptides;
 create table tmp2 as select * from tmp1 inner join results on tmp1.rowid = results.prot_rowid;
 create table tmp3 as select rowid,* from sequences.mod_comb;
-create table modified_peptides as select * from tmp2 inner join tmp3 on tmp2.mod_rowid = tmp3.rowid; 
+create table modified_peptides as select * from tmp2 left join tmp3 on tmp2.mod_rowid = tmp3.rowid; 
 .output modified_peptides.txt
 select * from modified_peptides;
