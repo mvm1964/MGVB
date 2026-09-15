@@ -1,7 +1,6 @@
 create table results(specNo Number, precMass Number, Score Number, prot_rowid Number, mod_rowid Number, nmod Number, missed Number, decoy Number, pep_len Number);
-.mode tabs
 .header on
-.separator \t
+.mode tabs
 .import sig_results.txt results
 delete from results where rowid = 1;
 attach database "sequences.db" as sequences;
