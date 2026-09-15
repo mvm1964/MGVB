@@ -1,4 +1,5 @@
 create table results(specNo Number, precMass Number, Score Number, prot_rowid Number, mod_rowid Number, nmod Number, missed Number, decoy Number, pep_len Number);
+.mode tabs
 .header on
 .separator \t
 .import sig_results.txt results
