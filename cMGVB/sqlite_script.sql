@@ -3,7 +3,7 @@ create table results(specNo Number, precMass Number, Score Number, prot_rowid Nu
 .mode tabs
 .import sig_results.txt results
 delete from results where rowid = 1;
-attach database "sequences.db" as sequences;
+attach database "sequences_tmp.db" as sequences;
 create table tmp1 as select rowid, sequence, prot_id from sequences.peptides;
 create table tmp2 as select * from tmp1 inner join results on tmp1.rowid = results.prot_rowid;
 create table tmp3 as select rowid,* from sequences.mod_comb;
